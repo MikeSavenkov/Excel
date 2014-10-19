@@ -20,23 +20,37 @@ public class MainUI extends JFrame {
     private List<Table> tableList;
     private File file = null;
     private JTextArea textArea;
+    private Font font;
+
+    private PlotParabolaWindow plotParabolaWindow;
 
 
     public MainUI(){
         super("Excel");
-        createWindow();
+        createMainWindow();
     }
 
-    public void createWindow(){
+    public void createMainWindow(){
 
         setBounds(400, 200, 200, 200);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         tableList = new ArrayList<Table>();
         textArea = new JTextArea();
 
         JMenuBar mainMenuBar = new JMenuBar();
-        Font font = new Font("Verdana", Font.PLAIN, 11);
+        font = new Font("Verdana", Font.PLAIN, 11);
+
+        mainMenuBar.add(fileMenu());
+        mainMenuBar.add(plotMenu());
+
+        this.add(mainMenuBar);
+        this.setJMenuBar(mainMenuBar);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        getContentPane().add(textArea);
+
+    }
+
+    public JMenu fileMenu(){
 
         JMenu fileMenu = new JMenu("Файл");
         fileMenu.setFont(font);
@@ -73,13 +87,7 @@ public class MainUI extends JFrame {
                 System.exit(0);
             }
         });
-
-        mainMenuBar.add(fileMenu);
-        this.setDefaultLookAndFeelDecorated(true);
-        this.add(mainMenuBar);
-        this.setJMenuBar(mainMenuBar);
-        getContentPane().add(textArea);
-
+        return fileMenu;
     }
 
     public void fileRead(){
@@ -101,5 +109,25 @@ public class MainUI extends JFrame {
             WriteExcelFile.writeExcelFile(file.getAbsolutePath(),tableList);
             textArea.setText("Запись файла завершена.\n");
         }
+    }
+
+    public JMenu plotMenu(){
+
+        JMenu plotMenu = new JMenu("График");
+        plotMenu.setFont(font);
+
+        JMenuItem plotParabolaItem = new JMenuItem("Построить параболу");
+        plotParabolaItem.setFont(font);
+        plotMenu.add(plotParabolaItem);
+        plotParabolaItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                plotParabolaWindow = new PlotParabolaWindow("Парабола");
+                plotParabolaWindow.setVisible(true);
+                textArea.setText("Построение графика завершено.\n");
+            }
+        });
+
+
+        return plotMenu;
     }
 }

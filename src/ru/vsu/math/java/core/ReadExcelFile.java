@@ -48,16 +48,18 @@ public class ReadExcelFile {
                 workbook = new HSSFWorkbook(fileInputStream);
             }
 
-            Sheet sheet = workbook.getSheetAt(0);
-            Iterator<Row> rowIterator = sheet.iterator();
+            int numberOfSheets = workbook.getNumberOfSheets();
+            for(int numberOfSheet=0; numberOfSheet < numberOfSheets; numberOfSheet++){
 
+                Sheet sheet = workbook.getSheetAt(numberOfSheet);
 
-            while(rowIterator.hasNext()){
+                Iterator<Row> rowIterator = sheet.iterator();
+                while(rowIterator.hasNext()){
 
-               Row row = rowIterator.next();
-               Iterator<Cell> cellIterator = row.iterator();
-               int i=0;
-               while (cellIterator.hasNext()){
+                 Row row = rowIterator.next();
+                 Iterator<Cell> cellIterator = row.iterator();
+                 int i=0;
+                 while (cellIterator.hasNext()){
 
                    Cell cell = cellIterator.next();
                    i++;
@@ -110,11 +112,11 @@ public class ReadExcelFile {
                 //System.out.println("");
                 Table table = new Table(id, CG1, CG2, CG3, CG4, CG5, CG6, CG7, CG8, CG9, name);
                 tableList.add(table);
-            }
+               }
 
+            }
             fileInputStream.close();
             System.out.println(fileName + " - чтение файла завершено.");
-
 
         }  catch (IOException e) {
             e.printStackTrace();
