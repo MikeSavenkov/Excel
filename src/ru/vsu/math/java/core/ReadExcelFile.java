@@ -9,9 +9,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_BLANK;
 import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_NUMERIC;
@@ -108,7 +106,7 @@ public class ReadExcelFile {
                 RowExcel rowExcel = new RowExcel(id, cg1, cg2, cg3, cg4, cg5, cg6, cg7, cg8, cg9);
                 table.add(rowExcel);
                }
-
+                Collections.sort(table, new SortedById());
             }
             fileInputStream.close();
             System.out.println(fileName + " - чтение файла завершено.");
