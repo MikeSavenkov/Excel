@@ -1,7 +1,7 @@
 package ru.vsu.math.java.ui;
 
 import ru.vsu.math.java.core.ReadExcelFile;
-import ru.vsu.math.java.core.Table;
+import ru.vsu.math.java.core.RowExcel;
 import ru.vsu.math.java.core.WriteExcelFile;
 
 import javax.swing.*;
@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class MainUI extends JFrame {
 
-    private List<Table> tableList;
+    private List<RowExcel> table;
     private File file = null;
     private JTextArea textArea;
     private Font font;
@@ -34,7 +34,7 @@ public class MainUI extends JFrame {
 
         setBounds(400, 200, 200, 200);
 
-        tableList = new ArrayList<Table>();
+        table = new ArrayList<RowExcel>();
         textArea = new JTextArea();
 
         JMenuBar mainMenuBar = new JMenuBar();
@@ -95,8 +95,8 @@ public class MainUI extends JFrame {
         int ret = fileRead.showDialog(null, "Open");
         if (ret == JFileChooser.APPROVE_OPTION) {
             file = fileRead.getSelectedFile();
-            tableList = ReadExcelFile.readExcelFile(file.getAbsolutePath());
-            //System.out.println(tableList);
+            table = ReadExcelFile.readExcelFile(file.getAbsolutePath());
+            //System.out.println(table);
             textArea.setText("Чтение файла завершено.\n");
         }
     }
@@ -106,7 +106,7 @@ public class MainUI extends JFrame {
         int ret = fileWrite.showSaveDialog(null);
         if (ret == JFileChooser.APPROVE_OPTION) {
             file = fileWrite.getSelectedFile();
-            WriteExcelFile.writeExcelFile(file.getAbsolutePath(),tableList);
+            WriteExcelFile.writeExcelFile(file.getAbsolutePath(),table);
             textArea.setText("Запись файла завершена.\n");
         }
     }

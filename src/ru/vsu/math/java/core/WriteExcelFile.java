@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class WriteExcelFile {
 
-    public static void writeExcelFile(String fileName, List<Table> tableList) throws Exception {
+    public static void writeExcelFile(String fileName, List<RowExcel> table) throws Exception {
         Workbook workbook = null;
 
         if(fileName.endsWith("xlsx")){
@@ -31,32 +31,32 @@ public class WriteExcelFile {
 
         Sheet sheet = workbook.createSheet("Экспериментальные данные");
 
-        Iterator<Table> iterator = tableList.iterator();
+        Iterator<RowExcel> iterator = table.iterator();
 
         int rowIndex = 0;
         while(iterator.hasNext()){
-            Table table = iterator.next();
+            RowExcel rowExcel = iterator.next();
             Row row = sheet.createRow(rowIndex++);
             Cell cell0 = row.createCell(0);
-            cell0.setCellValue(table.getId());
+            cell0.setCellValue(rowExcel.getId());
             Cell cell1 = row.createCell(1);
-            cell1.setCellValue(table.getCG1());
+            cell1.setCellValue(rowExcel.getCG1());
             Cell cell2 = row.createCell(2);
-            cell2.setCellValue(table.getCG2());
+            cell2.setCellValue(rowExcel.getCG2());
             Cell cell3 = row.createCell(3);
-            cell3.setCellValue(table.getCG3());
+            cell3.setCellValue(rowExcel.getCG3());
             Cell cell4 = row.createCell(4);
-            cell4.setCellValue(table.getCG4());
+            cell4.setCellValue(rowExcel.getCG4());
             Cell cell5 = row.createCell(5);
-            cell5.setCellValue(table.getCG5());
+            cell5.setCellValue(rowExcel.getCG5());
             Cell cell6 = row.createCell(6);
-            cell6.setCellValue(table.getCG6());
+            cell6.setCellValue(rowExcel.getCG6());
             Cell cell7 = row.createCell(7);
-            cell7.setCellValue(table.getCG7());
+            cell7.setCellValue(rowExcel.getCG7());
             Cell cell8 = row.createCell(8);
-            cell8.setCellValue(table.getCG8());
+            cell8.setCellValue(rowExcel.getCG8());
             Cell cell9 = row.createCell(9);
-            cell9.setCellValue(table.getCG9());
+            cell9.setCellValue(rowExcel.getCG9());
         }
 
         FileOutputStream fileOutputStream = new FileOutputStream(fileName);

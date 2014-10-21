@@ -22,20 +22,19 @@ import static org.apache.poi.ss.usermodel.Cell.CELL_TYPE_STRING;
  */
 public class ReadExcelFile {
 
-    public static List<Table> readExcelFile(String fileName){
+    public static List<RowExcel> readExcelFile(String fileName){
 
-        List<Table> tableList = new ArrayList<Table>();
+        List<RowExcel> table = new ArrayList<RowExcel>();
         double id = 0;
-        String name = "";
-        double CG1 = 0;
-        double CG2 = 0;
-        double CG3 = 0;
-        double CG4 = 0;
-        double CG5 = 0;
-        double CG6 = 0;
-        double CG7 = 0;
-        double CG8 = 0;
-        double CG9 = 0;
+        double cg1 = 0;
+        double cg2 = 0;
+        double cg3 = 0;
+        double cg4 = 0;
+        double cg5 = 0;
+        double cg6 = 0;
+        double cg7 = 0;
+        double cg8 = 0;
+        double cg9 = 0;
 
         try {
             FileInputStream fileInputStream = new FileInputStream(fileName);
@@ -71,37 +70,33 @@ public class ReadExcelFile {
                                    id = cell.getNumericCellValue();
                                break;
                                case 2:
-                                   CG1 = cell.getNumericCellValue();
+                                   cg1 = cell.getNumericCellValue();
                                break;
                                case 3:
-                                   CG2 = cell.getNumericCellValue();
+                                   cg2 = cell.getNumericCellValue();
                                    break;
                                case 4:
-                                   CG3 = cell.getNumericCellValue();
+                                   cg3 = cell.getNumericCellValue();
                                    break;
                                case 5:
-                                   CG4 = cell.getNumericCellValue();
+                                   cg4 = cell.getNumericCellValue();
                                    break;
                                case 6:
-                                   CG5 = cell.getNumericCellValue();
+                                   cg5 = cell.getNumericCellValue();
                                    break;
                                case 7:
-                                   CG6 = cell.getNumericCellValue();
+                                   cg6 = cell.getNumericCellValue();
                                    break;
                                case 8:
-                                   CG7 = cell.getNumericCellValue();
+                                   cg7 = cell.getNumericCellValue();
                                    break;
                                case 9:
-                                   CG8 = cell.getNumericCellValue();
+                                   cg8 = cell.getNumericCellValue();
                                    break;
                                case 10:
-                                   CG9 = cell.getNumericCellValue();
+                                   cg9 = cell.getNumericCellValue();
                                    break;
                            }
-                           break;
-                       case Cell.CELL_TYPE_STRING:
-                           //System.out.print(cell.getStringCellValue() + "\t\t");
-                           name = cell.getStringCellValue();
                            break;
                        case CELL_TYPE_BLANK:
                            cell.setCellValue("");
@@ -110,8 +105,8 @@ public class ReadExcelFile {
 
                }
                 //System.out.println("");
-                Table table = new Table(id, CG1, CG2, CG3, CG4, CG5, CG6, CG7, CG8, CG9, name);
-                tableList.add(table);
+                RowExcel rowExcel = new RowExcel(id, cg1, cg2, cg3, cg4, cg5, cg6, cg7, cg8, cg9);
+                table.add(rowExcel);
                }
 
             }
@@ -121,6 +116,6 @@ public class ReadExcelFile {
         }  catch (IOException e) {
             e.printStackTrace();
         }
-        return tableList;
+        return table;
     }
 }
