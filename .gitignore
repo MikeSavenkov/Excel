@@ -1,7 +1,10 @@
 .idea/
+.out/
+.src/META-INF/
 *.class
 *.iml
 *.xlsx
 *.xls
 *.png
 *.jpeg
+*.jar

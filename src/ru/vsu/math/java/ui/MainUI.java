@@ -21,7 +21,6 @@ public class MainUI extends JFrame {
     private File file = null;
     private JTextArea textArea;
     private Font font;
-
     private PlotParabolaWindow plotParabolaWindow;
 
 
@@ -58,15 +57,21 @@ public class MainUI extends JFrame {
         JMenuItem readFileItem = new JMenuItem("Прочитать файл");
         readFileItem.setFont(font);
         fileMenu.add(readFileItem);
+
         readFileItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                fileRead();
+                try {
+                    fileRead();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
             }
         });
 
         JMenuItem writeFileItem = new JMenuItem("Записать файл");
         writeFileItem.setFont(font);
         fileMenu.add(writeFileItem);
+
         writeFileItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -87,27 +92,34 @@ public class MainUI extends JFrame {
                 System.exit(0);
             }
         });
+
         return fileMenu;
     }
 
-    public void fileRead(){
+    public void fileRead() throws Exception {
+
         JFileChooser fileRead = new JFileChooser();
         int ret = fileRead.showDialog(null, "Open");
+
         if (ret == JFileChooser.APPROVE_OPTION) {
+
             file = fileRead.getSelectedFile();
-            table = ReadExcelFile.readExcelFile(file.getAbsolutePath());
-            //System.out.println(table);
+            table = new ReadExcelFile().readExcelFile(file.getAbsolutePath());
             textArea.setText("Чтение файла завершено.\n");
         }
     }
 
     public void fileWrite() throws Exception{
+
         JFileChooser fileWrite = new JFileChooser();
         int ret = fileWrite.showSaveDialog(null);
+
         if (ret == JFileChooser.APPROVE_OPTION) {
+
             file = fileWrite.getSelectedFile();
-            WriteExcelFile.writeExcelFile(file.getAbsolutePath(),table);
+            new WriteExcelFile().writeExcelFile(file.getAbsolutePath(),table);
             textArea.setText("Запись файла завершена.\n");
+
         }
     }
 
@@ -119,14 +131,16 @@ public class MainUI extends JFrame {
         JMenuItem plotParabolaItem = new JMenuItem("Построить параболу");
         plotParabolaItem.setFont(font);
         plotMenu.add(plotParabolaItem);
+
         plotParabolaItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
                 plotParabolaWindow = new PlotParabolaWindow("Парабола");
                 plotParabolaWindow.setVisible(true);
                 textArea.setText("Построение графика завершено.\n");
+
             }
         });
-
 
         return plotMenu;
     }
