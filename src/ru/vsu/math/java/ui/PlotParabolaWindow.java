@@ -30,6 +30,7 @@ public class PlotParabolaWindow extends JFrame {
 		
 		setSize(640, 480);
 		setLocationRelativeTo(null);
+
 	}
 	
 	private JPanel createChartPanel() {
@@ -43,7 +44,7 @@ public class PlotParabolaWindow extends JFrame {
 		JFreeChart chart = ChartFactory.createXYLineChart(chartTitle, xAxisLabel, yAxisLabel, dataset);
 		customizeChart(chart);
 
-		File imageFile = new File("XYLineChart.png");
+		/*File imageFile = new File("XYLineChart.png");
 		int width = 640;
 		int height = 480;
 		
@@ -51,7 +52,7 @@ public class PlotParabolaWindow extends JFrame {
 			ChartUtilities.saveChartAsPNG(imageFile, chart, width, height);
 		} catch (IOException ex) {
 			System.err.println(ex);
-		}
+		}*/
 		
 		return new ChartPanel(chart);
 	}

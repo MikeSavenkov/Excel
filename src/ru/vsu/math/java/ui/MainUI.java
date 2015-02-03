@@ -1,8 +1,7 @@
 package ru.vsu.math.java.ui;
 
-import ru.vsu.math.java.core.ReadExcelFile;
+import ru.vsu.math.java.core.ExcelFile;
 import ru.vsu.math.java.core.RowExcel;
-import ru.vsu.math.java.core.WriteExcelFile;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +18,7 @@ public class MainUI extends JFrame {
 
     private List<RowExcel> table;
     private File file = null;
+    ExcelFile excelFile = new ExcelFile();
     private JTextArea textArea;
     private Font font;
     private PlotParabolaWindow plotParabolaWindow;
@@ -29,7 +29,7 @@ public class MainUI extends JFrame {
         createMainWindow();
     }
 
-    public void createMainWindow(){
+    private void createMainWindow(){
 
         setBounds(400, 200, 200, 200);
 
@@ -49,7 +49,7 @@ public class MainUI extends JFrame {
 
     }
 
-    public JMenu fileMenu(){
+    private JMenu fileMenu(){
 
         JMenu fileMenu = new JMenu("Файл");
         fileMenu.setFont(font);
@@ -96,7 +96,7 @@ public class MainUI extends JFrame {
         return fileMenu;
     }
 
-    public void fileRead() throws Exception {
+    private void fileRead() throws Exception {
 
         JFileChooser fileRead = new JFileChooser();
         int ret = fileRead.showDialog(null, "Open");
@@ -104,12 +104,12 @@ public class MainUI extends JFrame {
         if (ret == JFileChooser.APPROVE_OPTION) {
 
             file = fileRead.getSelectedFile();
-            table = new ReadExcelFile().readExcelFile(file.getAbsolutePath());
+            table = excelFile.read(file.getAbsolutePath());
             textArea.setText("Чтение файла завершено.\n");
         }
     }
 
-    public void fileWrite() throws Exception{
+    private void fileWrite() throws Exception{
 
         JFileChooser fileWrite = new JFileChooser();
         int ret = fileWrite.showSaveDialog(null);
@@ -117,13 +117,13 @@ public class MainUI extends JFrame {
         if (ret == JFileChooser.APPROVE_OPTION) {
 
             file = fileWrite.getSelectedFile();
-            new WriteExcelFile().writeExcelFile(file.getAbsolutePath(),table);
+            excelFile.write(file.getAbsolutePath(), table);
             textArea.setText("Запись файла завершена.\n");
 
         }
     }
 
-    public JMenu plotMenu(){
+    private JMenu plotMenu(){
 
         JMenu plotMenu = new JMenu("График");
         plotMenu.setFont(font);
